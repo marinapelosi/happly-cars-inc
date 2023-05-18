@@ -4,11 +4,14 @@ namespace Tests\Unit\Command;
 
 use App\Models\Car;
 use App\Models\CarType;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Support\Facades\Artisan;
 use Tests\TestCase;
 
 class ImportCarsCommandTest extends TestCase
 {
+    use DatabaseTransactions;
+
     public function testShouldImportCarsByJsonFile()
     {
         Artisan::call('command:import-cars');
