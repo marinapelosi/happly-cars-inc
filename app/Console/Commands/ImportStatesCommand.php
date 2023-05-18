@@ -9,7 +9,7 @@ use Faker\Core\File;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Storage;
 
-class ImportStates extends Command
+class ImportStatesCommand extends Command
 {
     /**
      * The name and signature of the console command.
