@@ -2,8 +2,6 @@
 
 namespace Tests\Unit\Command;
 
-use App\Http\Requests\StoreStateRequest;
-use App\Http\Resources\StateResource;
 use App\Models\State;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
