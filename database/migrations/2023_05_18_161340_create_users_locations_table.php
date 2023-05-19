@@ -19,6 +19,7 @@ class CreateUsersLocationsTable extends Migration
             $table->foreign('user_id')->references('id')->on('cars');
             $table->foreignId('state_id');
             $table->foreign('state_id')->references('id')->on('states');
+            $table->boolean('current')->default(1);
             $table->timestamps();
             $table->softDeletes();
         });

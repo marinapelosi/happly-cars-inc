@@ -50,6 +50,6 @@ class ImportStatesCommand extends Command
             }
         }
 
-        return 0;
+        return count($states) ?? 0;
     }
 }

@@ -19,6 +19,9 @@ class CreateDeliveriesTable extends Migration
             $table->foreign('user_id')->references('id')->on('cars');
             $table->foreignId('car_located_id');
             $table->foreign('car_located_id')->references('id')->on('cars_locations');
+            $table->foreignId('delivery_location_id');
+            $table->foreign('delivery_location_id')->references('id')->on('states');
+            $table->boolean('delivered')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });
