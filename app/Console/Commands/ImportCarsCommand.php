@@ -48,7 +48,7 @@ class ImportCarsCommand extends Command
             $this->importCars($cars);
         }
 
-        return 0;
+        return count($cars) ?? 0;
     }
 
     public function importCars(array $carTypes): void
@@ -63,8 +63,10 @@ class ImportCarsCommand extends Command
     {
         $request = new StoreCarRequest();
 
-        foreach ($models as $key => $model) {
-            $model->car_type = $carType;
+        foreach ($models as $model) {
+            $model->car_type_id = $carType;
+            $model->display_name = $model->title;
+            $model->key_name = $model->value;
             $resource = new CarResource($model);
             Car::updateOrCreate($resource->toArray($request));
         }

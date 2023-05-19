@@ -6,8 +6,6 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class CarResource extends JsonResource
 {
-    public static $wrap = 'cars';
-
     /**
      * Transform the resource into an array.
      *
@@ -17,9 +15,9 @@ class CarResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'car_type_id' => $this->car_type,
-            'display_name' => ltrim($this->title),
-            'key_name' => ltrim(strtolower($this->value))
+            'car_type_id' => $this->car_type_id,
+            'display_name' => ltrim($this->display_name),
+            'key_name' => ltrim(strtolower($this->key_name))
         ];
     }
 }
