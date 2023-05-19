@@ -18,8 +18,14 @@ class CarType extends Model
         'key_name'
     ];
 
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+
     public function models(): HasMany
     {
-        return $this->hasMany(Car::class, 'car_type_id', 'id');
+        return $this->hasMany(Car::class);
     }
 }

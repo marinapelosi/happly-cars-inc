@@ -19,13 +19,31 @@ class CarLocation extends Model
         'available'
     ];
 
+    protected $hidden = [
+        'car_id',
+        'state_id',
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+
     public function car(): HasOne
     {
         return $this->hasOne(Car::class, 'id', 'car_id');
     }
 
-    public function state(): HasOne
+    public function location(): HasOne
     {
         return $this->hasOne(State::class, 'id', 'state_id');
+    }
+
+    public function scopeAvailable($query): void
+    {
+        $query->where('available', true);
+    }
+
+    public function scopeUnavailable($query): void
+    {
+        $query->where('available', false);
     }
 }
