@@ -19,6 +19,14 @@ class UsersLocation extends Model
         'current'
     ];
 
+    protected $hidden = [
+        'user_id',
+        'state_id',
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
+
     public function user(): HasOne
     {
         return $this->hasOne(User::class, 'id', 'user_id');

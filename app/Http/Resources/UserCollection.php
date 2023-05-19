@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\ResourceCollection;
 
 class UserCollection extends ResourceCollection
 {
-    public static $wrap = 'states';
+    public static $wrap = 'costumers';
 
     /**
      * Transform the resource collection into an array.
