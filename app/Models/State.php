@@ -18,4 +18,10 @@ class State extends Model
         'capital',
         'year'
     ];
+
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
 }

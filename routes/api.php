@@ -2,11 +2,6 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Resources\CarResource;
-use App\Http\Resources\CarCollection;
-use App\Http\Requests\StoreCarRequest;
-use App\Models\Car;
-use App\Models\CarLocation;
 use App\Http\Controllers\CarLocationController;
 use App\Http\Resources\StateCollection;
 use App\Models\State;
@@ -14,6 +9,7 @@ use App\Http\Resources\UserCollection;
 use App\Models\User;
 use App\Http\Resources\DeliveryCollection;
 use App\Models\Delivery;
+use App\Http\Controllers\UsersLocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,20 +27,7 @@ use App\Models\Delivery;
 //
 //    return ['token' => $token->plainTextToken];
 //});
-//
-//Route::get('/cars-types', function () {
-//    return new CarCollection(Car::with(['type'])->get());
-//});
-//
-//Route::get('/cars', function () {
-//    return new CarCollection(Car::with(['type'])->get());
-//});
-//
-//Route::get('/cars-locations', [CarLocationController::class, 'list']);
 
-//Route::post('/cars', function (Request $request) {
-//    return new CarResource(Car::create(new StoreCarRequest($request->all())));
-//});
 
 // @TODO: make non public
 # State / Location
@@ -61,6 +44,8 @@ Route::get('/cars-with-location', [CarLocationController::class, 'getCarsWithLoc
 Route::get('/costumers', function () {
     return new UserCollection(User::costumer()->get());
 })->name('costumers');
+
+Route::get('/costumers-with-location', [UsersLocationController::class, 'getCostumersWithLocation'])->name('costumers-with-location');
 
 # Delivery
 Route::get('/deliveries-requested', function () {
