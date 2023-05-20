@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class State extends Model
 {
@@ -16,7 +17,9 @@ class State extends Model
         'name',
         'code',
         'capital',
-        'year'
+        'year',
+        'latitude',
+        'longitude'
     ];
 
     protected $hidden = [
@@ -24,4 +27,9 @@ class State extends Model
         'updated_at',
         'deleted_at'
     ];
+
+    public function user(): BelongsToMany
+    {
+        return $this->BelongsToMany(User::class, 'id', 'location_id');
+    }
 }

@@ -19,8 +19,7 @@ class CreateDeliveriesTable extends Migration
             $table->foreign('user_id')->references('id')->on('cars');
             $table->foreignId('car_located_id');
             $table->foreign('car_located_id')->references('id')->on('cars_locations');
-            $table->foreignId('delivery_location_id');
-            $table->foreign('delivery_location_id')->references('id')->on('states');
+            $table->json('delivery_location')->comment('To save real location of the costumer at that time, because we can pu Costumer Location N to N sometime');
             $table->boolean('delivered')->default(false);
             $table->integer('delivery_deadline_in_days');
             $table->datetime('delivery_start_date');

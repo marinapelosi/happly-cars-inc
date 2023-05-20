@@ -31,7 +31,7 @@ use App\Http\Controllers\DeliveryController;
 
 
 // @TODO: make non public
-# State / Location
+# States / Locations
 Route::get('/states', function () {
     return new StateCollection(State::get());
 })->name('states');
@@ -47,14 +47,10 @@ Route::get('/costumers/{id}', [UserController::class, 'get'])->name('costumers')
 Route::post('/costumers', [UserController::class, 'store'])->name('costumers');
 
 # Delivery
-//Route::get('/deliveries-requested', function () {
-//    return new DeliveryCollection(Delivery::requested()->with(['car', 'location'])->get());
-//})->name('deliveries-requested');
-
-
 Route::get('/deliveries', [DeliveryController::class, 'get'])->name('deliveries');
-Route::get('/deliveries/{type}', [DeliveryController::class, 'get'])->name('deliveries');
+Route::get('/deliveries/{id}', [DeliveryController::class, 'get'])->name('deliveries');
 Route::post('/deliveries', [DeliveryController::class, 'store'])->name('deliveries');
+
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

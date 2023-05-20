@@ -2,12 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Console\Commands\ImportStatesCommand;
-use App\Models\CarLocation;
-use App\Models\State;
-use App\Models\User;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\Artisan;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,9 +28,6 @@ class DatabaseSeeder extends Seeder
         if ($dinamic === 'yes') {
             $this->command->info('---------');
             $this->command->info('Yeah!');
-            $this->command->info('Generating non staff users');
-            $this->call(UserSeeder::class);
-            $this->command->info('5 users were created');
 
             $this->command->info('---------');
             $this->command->info('Importing states by states.json');
@@ -49,6 +41,10 @@ class DatabaseSeeder extends Seeder
             $this->command->info('Creating random cars locations');
             $this->call(CarLocationSeeder::class);
             $this->command->info('20 cars locations were created');
+
+            $this->command->info('Generating non staff users');
+            $this->call(UserSeeder::class);
+            $this->command->info('5 users were created');
 
             $this->command->info('---------');
             $this->command->info('Receiving random delivery requests');

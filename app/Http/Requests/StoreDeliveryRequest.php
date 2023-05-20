@@ -27,7 +27,7 @@ class StoreDeliveryRequest extends FormRequest
     {
         return [
             'car_located_id' => 'required|exists:cars_locations,id',
-            'delivery_location_id' => 'required|exists:states,id'
+            'delivery_location_code' => 'required|exists:states,code'
         ];
     }
 

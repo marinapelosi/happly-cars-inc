@@ -9,8 +9,7 @@ class UserService
     public static function getUsers(int $userId = null): Object
     {
         $relations = [
-            'location.state',
-            'deliveries.location',
+            'current_location',
             'deliveries.car.model',
             'deliveries.car.model.type',
             'deliveries.car.state'
