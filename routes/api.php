@@ -11,6 +11,7 @@ use App\Http\Resources\DeliveryCollection;
 use App\Models\Delivery;
 use App\Http\Controllers\UsersLocationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DeliveryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -54,6 +55,8 @@ Route::post('/costumers', [UserController::class, 'store'])->name('costumers');
 Route::get('/deliveries-requested', function () {
     return new DeliveryCollection(Delivery::requested()->with(['car', 'location'])->get());
 })->name('deliveries-requested');
+
+Route::post('/deliveries', [DeliveryController::class, 'store'])->name('deliveries');
 
 Route::get('/deliveries-finished', function () {
     return new DeliveryCollection(Delivery::completed()->with(['car', 'location'])->get());

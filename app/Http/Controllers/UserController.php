@@ -6,7 +6,6 @@ use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use App\Models\UsersLocation;
 use App\Services\StateService;
-use App\Services\UserService;
 
 class UserController extends Controller
 {
