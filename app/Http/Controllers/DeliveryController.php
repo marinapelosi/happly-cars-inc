@@ -6,8 +6,11 @@ use App\Models\Delivery;
 use App\Http\Requests\StoreDeliveryRequest;
 use App\Models\User;
 use App\Services\DeliveryService;
+use App\Services\GeoLocation\LocationDistanceService;
 use App\Services\StateService;
 use Illuminate\Http\JsonResponse;
+use Salman\GeoFence\Facades\GeoFence;
+use Salman\GeoFence\Service\GeoFenceCalculator;
 
 class DeliveryController extends Controller
 {
