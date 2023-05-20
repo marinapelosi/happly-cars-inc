@@ -17,4 +17,12 @@ class StateService
     {
         return $city.', '.$code;
     }
+
+    public static function setLatitudeLongitude(string $latitude, string $longitude): array
+    {
+        return [
+            'latitude'  => $latitude,
+            'longitude' => $longitude
+        ];
+    }
 }
