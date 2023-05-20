@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Spatie\Geocoder\GeocoderServiceProvider::class,
+        Salman\GeoFence\GeoFenceServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -231,6 +232,7 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Geocoder' => Spatie\Geocoder\Facades\Geocoder::class,
+        'GeoFence' => Salman\GeoFence\Facades\GeoFence::class,
     ],
 
 ];

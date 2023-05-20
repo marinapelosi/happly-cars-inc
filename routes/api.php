@@ -51,8 +51,6 @@ Route::get('/deliveries', [DeliveryController::class, 'get'])->name('deliveries'
 Route::get('/deliveries/{id}', [DeliveryController::class, 'get'])->name('deliveries');
 Route::post('/deliveries', [DeliveryController::class, 'store'])->name('deliveries');
 
-
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

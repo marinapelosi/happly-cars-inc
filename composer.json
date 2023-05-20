@@ -11,6 +11,7 @@
         "laravel/framework": "^8.75",
         "laravel/sanctum": "^2.11",
         "laravel/tinker": "^2.5",
+        "salmanzafar/laravel-geo-fence": "^1.0",
         "spatie/geocoder": "^3.14",
         "toin0u/geocoder-laravel": "^4.4"
     },
