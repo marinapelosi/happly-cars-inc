@@ -20,6 +20,7 @@ class UsersLocation extends Model
     ];
 
     protected $hidden = [
+        'id',
         'user_id',
         'state_id',
         'created_at',
@@ -32,7 +33,7 @@ class UsersLocation extends Model
         return $this->hasOne(User::class, 'id', 'user_id');
     }
 
-    public function location(): HasOne
+    public function state(): HasOne
     {
         return $this->hasOne(State::class, 'id', 'state_id');
     }

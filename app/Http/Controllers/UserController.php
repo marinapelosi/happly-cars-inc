@@ -6,10 +6,20 @@ use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
 use App\Models\UsersLocation;
 use App\Services\StateService;
+use App\Services\UserService;
+use Illuminate\Http\JsonResponse;
 
 class UserController extends Controller
 {
-    public function store(StoreUserRequest $request)
+    public function get(int $userId = null): JsonResponse
+    {
+        return response()->json([
+            'status' => 201,
+            'user' => UserService::getUsers($userId)
+        ], 201);
+    }
+
+    public function store(StoreUserRequest $request): JsonResponse
     {
         try {
             $userId = User::create($request->all())->id;
@@ -21,7 +31,8 @@ class UserController extends Controller
 
             return response()->json([
                 'status' => 201,
-                'message' => __('messages.created')
+                'message' => __('messages.created'),
+                'user' => UserService::getUsers($userId)
             ], 201);
         } catch (\Exception $exception) {
             return response()->json([

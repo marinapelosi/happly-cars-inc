@@ -3,6 +3,9 @@
 namespace Database\Factories;
 
 use App\Models\CarLocation;
+use App\Models\State;
+use App\Models\User;
+use App\Models\UsersLocation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
 
@@ -15,14 +18,26 @@ class DeliveryFactory extends Factory
      */
     public function definition()
     {
+        $userId = User::where('is_admin', false)->inRandomOrder()->first()->id;
+        $stateIdToUser = State::first()->id;
+        $stateIdToCar = State::first()->id;
+
+        if (!$userCurrentLocation = UsersLocation::where('user_id', $userId)->where('current', true)->first()) {
+            $userCurrentLocation = UsersLocation::create([
+                'user_id' => $userId,
+                'state_id' => $stateIdToUser,
+                'current' => true
+            ]);
+        }
+
         return [
-            'user_id' => DB::table('users')->where('is_admin', false)->inRandomOrder()->first()->id,
+            'user_id' => $userId,
             'car_located_id' => CarLocation::factory()->create([
-                'car_id' => DB::table('car_types')->inRandomOrder()->first()->id,
-                'state_id' => DB::table('states')->inRandomOrder()->first()->id,
+                'car_id' => DB::table('cars')->inRandomOrder()->first()->id,
+                'state_id' => $stateIdToCar,
                 'available' => false
-            ]),
-            'delivery_location_id' => DB::table('states')->first()->id,
+            ])->id,
+            'delivery_location_id' => $stateIdToUser,
             'delivered' => $this->faker->boolean(),
             'delivery_deadline_in_days' => 1,
             'delivery_start_date' => now(),
