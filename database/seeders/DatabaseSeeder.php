@@ -51,11 +51,6 @@ class DatabaseSeeder extends Seeder
             $this->command->info('20 cars locations were created');
 
             $this->command->info('---------');
-            $this->command->info('Creating random users locations');
-            $this->call(UsersLocationSeeder::class);
-            $this->command->info('Some user locations were created');
-
-            $this->command->info('---------');
             $this->command->info('Receiving random delivery requests');
             $this->call(DeliverySeeder::class);
             $this->command->info('Some cars could be already delivered. Others could be waiting for delivery');

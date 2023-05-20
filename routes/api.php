@@ -9,7 +9,6 @@ use App\Http\Resources\UserCollection;
 use App\Models\User;
 use App\Http\Resources\DeliveryCollection;
 use App\Models\Delivery;
-use App\Http\Controllers\UsersLocationController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DeliveryController;
 
@@ -40,27 +39,23 @@ Route::get('/states', function () {
 # Cars
 Route::get('/available-cars', [CarLocationController::class, 'getAvailableCars'])->name('available-cars');
 Route::get('/unavailable-cars', [CarLocationController::class, 'getUnavailableCars'])->name('unavailable-cars');
-Route::get('/cars-with-location', [CarLocationController::class, 'getCarsWithLocation'])->name('cars-with-location');
+Route::get('/cars', [\App\Http\Controllers\CarController::class, 'get'])->name('cars');
 
 # Users
-Route::get('/costumers', function () {
-    return new UserCollection(User::costumer()->get());
-})->name('costumers');
-
-Route::get('/costumers-with-location', [UsersLocationController::class, 'getCostumersWithLocation'])->name('costumers-with-location');
-
+Route::get('/costumers', [UserController::class, 'get'])->name('costumers');
+Route::get('/costumers/{id}', [UserController::class, 'get'])->name('costumers');
 Route::post('/costumers', [UserController::class, 'store'])->name('costumers');
 
 # Delivery
-Route::get('/deliveries-requested', function () {
-    return new DeliveryCollection(Delivery::requested()->with(['car', 'location'])->get());
-})->name('deliveries-requested');
+//Route::get('/deliveries-requested', function () {
+//    return new DeliveryCollection(Delivery::requested()->with(['car', 'location'])->get());
+//})->name('deliveries-requested');
 
+
+Route::get('/deliveries', [DeliveryController::class, 'get'])->name('deliveries');
+Route::get('/deliveries/{type}', [DeliveryController::class, 'get'])->name('deliveries');
 Route::post('/deliveries', [DeliveryController::class, 'store'])->name('deliveries');
 
-Route::get('/deliveries-finished', function () {
-    return new DeliveryCollection(Delivery::completed()->with(['car', 'location'])->get());
-})->name('deliveries-finished');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

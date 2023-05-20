@@ -6,10 +6,18 @@ use App\Models\Delivery;
 use App\Http\Requests\StoreDeliveryRequest;
 use App\Models\User;
 use App\Services\DeliveryService;
+use Illuminate\Http\JsonResponse;
 
 class DeliveryController extends Controller
 {
-    public function store(StoreDeliveryRequest $request)
+    public function get()
+    {
+        return response()->json([
+            'deliveries' => DeliveryService::getDeliveries()
+        ], 200);
+    }
+
+    public function store(StoreDeliveryRequest $request): JsonResponse
     {
         try {
             $delivery = $request->all();

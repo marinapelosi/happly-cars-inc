@@ -27,12 +27,12 @@ class CarLocation extends Model
         'deleted_at'
     ];
 
-    public function car(): HasOne
+    public function model(): HasOne
     {
         return $this->hasOne(Car::class, 'id', 'car_id');
     }
 
-    public function location(): HasOne
+    public function state(): HasOne
     {
         return $this->hasOne(State::class, 'id', 'state_id');
     }

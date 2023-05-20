@@ -10,7 +10,7 @@ class CarLocationController extends Controller
     {
         return response()->json([
             'status' => 200,
-            'cars' => CarLocation::with(['car', 'location'])
+            'cars' => CarLocation::with(['model.type', 'state'])
                 ->available()
                 ->get()
         ]);
@@ -20,7 +20,7 @@ class CarLocationController extends Controller
     {
         return response()->json([
             'status' => 200,
-            'cars' => CarLocation::with(['car', 'location'])
+            'cars' => CarLocation::with(['model.type', 'state'])
                 ->unavailable()
                 ->get()
         ]);

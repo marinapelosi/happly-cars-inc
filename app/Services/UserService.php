@@ -2,24 +2,24 @@
 
 namespace App\Services;
 
-use App\Models\Delivery;
-use Carbon\Carbon;
+use App\Models\User;
 
-class DeliveryService
+class UserService
 {
-    public static function setDeliveryFinishedBecauseWeArePretendingAllTheProcessIsDone(): bool
+    public static function getUsers(int $userId = null): Object
     {
-        return true;
-    }
+        $relations = [
+            'location.state',
+            'deliveries.location',
+            'deliveries.car.model',
+            'deliveries.car.model.type',
+            'deliveries.car.state'
+        ];
 
-    public static function getDelivery(string $deliveryId): Object
-    {
-        return Delivery::where('id', $deliveryId)->with(['user', 'location', 'car'])->get();
-    }
+        if (isset($userId) && !empty($userId)) {
+            return User::where('id', $userId)->with($relations)->costumer()->get();
+        }
 
-    public static function calculateDaysOfDelivery(string $startDate, int $deadline): Object
-    {
-        $startDate = Carbon::create($startDate);
-        return $startDate->addDays($deadline);
+        return User::with($relations)->orderBy('created_at', 'desc')->get();
     }
 }
