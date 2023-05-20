@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -21,6 +22,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'location_id'
     ];
 
     /**
@@ -29,6 +31,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $hidden = [
+        'location_id',
         'password',
         'remember_token',
         'created_at',
@@ -50,9 +53,9 @@ class User extends Authenticatable
         $query->where('is_admin', 0);
     }
 
-    public function location(): HasMany
+    public function current_location(): HasOne
     {
-        return $this->HasMany(UsersLocation::class);
+        return $this->HasOne(State::class, 'id', 'location_id');
     }
 
     public function deliveries(): HasMany

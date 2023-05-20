@@ -47,15 +47,13 @@ Route::get('/costumers/{id}', [UserController::class, 'get'])->name('costumers')
 Route::post('/costumers', [UserController::class, 'store'])->name('costumers');
 
 # Delivery
-//Route::get('/deliveries-requested', function () {
-//    return new DeliveryCollection(Delivery::requested()->with(['car', 'location'])->get());
-//})->name('deliveries-requested');
-
-
 Route::get('/deliveries', [DeliveryController::class, 'get'])->name('deliveries');
-Route::get('/deliveries/{type}', [DeliveryController::class, 'get'])->name('deliveries');
+Route::get('/deliveries/{id}', [DeliveryController::class, 'get'])->name('deliveries');
+// @todo consertar rota de deliveries
 Route::post('/deliveries', [DeliveryController::class, 'store'])->name('deliveries');
 
+# Location
+Route::get('/location', [\App\Http\Controllers\LocationController::class, 'get'])->name('location');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

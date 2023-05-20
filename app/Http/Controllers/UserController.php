@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreUserRequest;
 use App\Models\User;
-use App\Models\UsersLocation;
 use App\Services\StateService;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
@@ -22,12 +21,10 @@ class UserController extends Controller
     public function store(StoreUserRequest $request): JsonResponse
     {
         try {
-            $userId = User::create($request->all())->id;
-            $state = StateService::getStateByCode($request->input('state'));
-            UsersLocation::create([
-                'user_id' => $userId,
-                'state_id' => $state->id
-            ]);
+            $userData = $request->all();
+            $stateId = StateService::getStateByCode($request->input('state'))->id;
+            $userData['location_id'] = $stateId;
+            $userId = User::create($userData)->id;
 
             return response()->json([
                 'status' => 201,

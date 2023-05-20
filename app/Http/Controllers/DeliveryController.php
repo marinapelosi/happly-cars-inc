@@ -6,6 +6,7 @@ use App\Models\Delivery;
 use App\Http\Requests\StoreDeliveryRequest;
 use App\Models\User;
 use App\Services\DeliveryService;
+use App\Services\StateService;
 use Illuminate\Http\JsonResponse;
 
 class DeliveryController extends Controller
@@ -13,7 +14,7 @@ class DeliveryController extends Controller
     public function get()
     {
         return response()->json([
-            'deliveries' => DeliveryService::getDeliveries()
+            'deliveries' => DeliveryService::getDelivery()
         ], 200);
     }
 
@@ -21,13 +22,17 @@ class DeliveryController extends Controller
     {
         try {
             $delivery = $request->all();
-            $delivery['user_id'] = User::first()->id; // @TODO: colocar o usuário logado aqui
+            $delivery['user_id'] = User::inRandomOrder()->first()->id; // @TODO: colocar o usuário logado aqui
+            $delivery['delivery_location'] = json_encode(StateService::getStateByCode($request->input('delivery_location_code')));
             $delivery['delivered'] = DeliveryService::setDeliveryFinishedBecauseWeArePretendingAllTheProcessIsDone();
             $delivery['delivery_finish_date'] = DeliveryService::calculateDaysOfDelivery(
                 $request->input('delivery_start_date'),
                 $request->input('delivery_deadline_in_days')
             );
+
             $deliveryRequested = Delivery::create($delivery);
+
+            //@TODO - setar carro selecionado omo indisponível na location
 
             return response()->json([
                 'status' => 201,

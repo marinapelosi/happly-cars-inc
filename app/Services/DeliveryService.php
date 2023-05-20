@@ -12,32 +12,20 @@ class DeliveryService
         return true;
     }
 
-    public static function getDelivery(string $deliveryId): Object
+    public static function getDelivery(string $deliveryId = null): Object
     {
-        return Delivery::where('id', $deliveryId)->with([
-            'user.location.state',
-            'location',
-            'car.model',
-            'car.model.type',
-            'car.state'
-        ])->get();
-    }
-
-    public static function getDeliveries(string $type = null): Object
-    {
-        $with = [
-            'user.location.state',
-            'location',
+        $relations = [
+            'user',
             'car.model',
             'car.model.type',
             'car.state'
         ];
 
-        if (isset($type) && $type === 'requested') {
-            return Delivery::with($with)->requested()->get();
+        if (isset($deliveryId) && !empty($deliveryId)) {
+            return Delivery::where('id', $deliveryId)->with($relations)->get();
         }
 
-        return Delivery::with($with)->completed()->get();
+        return Delivery::with($relations)->completed()->get();
     }
 
     public static function calculateDaysOfDelivery(string $startDate, int $deadline): Object

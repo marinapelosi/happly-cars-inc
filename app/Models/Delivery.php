@@ -17,7 +17,7 @@ class Delivery extends Model
     protected $fillable = [
         'user_id',
         'car_located_id',
-        'delivery_location_id',
+        'delivery_location',
         'delivered',
         'delivery_deadline_in_days',
         'delivery_start_date',
@@ -27,7 +27,6 @@ class Delivery extends Model
     protected $hidden = [
         'user_id',
         'car_located_id',
-        'delivery_location_id',
         'created_at',
         'updated_at',
         'deleted_at'
@@ -35,17 +34,12 @@ class Delivery extends Model
 
     public function user(): BelongsTo
     {
-        return $this->BelongsTo(User::class, 'id', 'id');
+        return $this->BelongsTo(User::class, 'user_id', 'id');
     }
 
     public function car(): HasOne
     {
         return $this->hasOne(CarLocation::class, 'id', 'car_located_id');
-    }
-
-    public function location(): HasOne
-    {
-        return $this->hasOne(State::class, 'id', 'delivery_location_id');
     }
 
     public function scopeRequested($query): void
