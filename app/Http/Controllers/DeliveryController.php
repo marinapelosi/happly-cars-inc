@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Delivery;
 use App\Http\Requests\StoreDeliveryRequest;
 use App\Models\User;
+use App\Services\CarService;
 use App\Services\DeliveryService;
 use App\Services\GeoLocation\LocationDistanceService;
+use App\Services\ScheduleService;
 use App\Services\StateService;
 use Illuminate\Http\JsonResponse;
-use Salman\GeoFence\Facades\GeoFence;
 use Salman\GeoFence\Service\GeoFenceCalculator;
 
 class DeliveryController extends Controller
@@ -19,6 +20,19 @@ class DeliveryController extends Controller
         return response()->json([
             'deliveries' => DeliveryService::getDelivery()
         ], 200);
+    }
+
+    public function getDeliverySchedule(StoreDeliveryRequest $request): JsonResponse
+    {
+        $request = $request->all();
+        $schedule = ScheduleService::generateSchedule($request);
+
+        return response()->json([
+            'status' => 201,
+            'message' => $schedule['estimated_due']['delivery_due_message'],
+            'schedule' => $schedule,
+            'payload_to_request' => DeliveryService::generateDeliveryRequestPayload($request, $schedule)
+        ], 201);
     }
 
     public function store(StoreDeliveryRequest $request): JsonResponse
@@ -35,7 +49,7 @@ class DeliveryController extends Controller
 
             $deliveryRequested = Delivery::create($delivery);
 
-            //@TODO - setar carro selecionado omo indisponível na location
+            CarService::setCarUnavailable($delivery['car_located_id']);
 
             return response()->json([
                 'status' => 201,
@@ -48,5 +62,10 @@ class DeliveryController extends Controller
                 'message' => $exception->getMessage()
             ], 500);
         }
+    }
+
+    public function calculate(){
+        $distance = new LocationDistanceService(new GeoFenceCalculator());
+        $distance->calculateDrivingTime();
     }
 }

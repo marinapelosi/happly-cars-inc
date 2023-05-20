@@ -33,4 +33,15 @@ class DeliveryService
         $startDate = Carbon::create($startDate);
         return $startDate->addDays($deadline);
     }
+
+    public static function generateDeliveryRequestPayload(array $request, array $schedule): array
+    {
+        return [
+            'accepts_the_proposed_schedule' => true,
+            'car_located_id' => $request['car_located_id'],
+            'delivery_location_code' => $request['delivery_location_code'],
+            'delivery_deadline_in_days' => $schedule['estimated_due']['delivery_due'],
+            'delivery_start_date' => $schedule['delivery_start_date'],
+        ];
+    }
 }
