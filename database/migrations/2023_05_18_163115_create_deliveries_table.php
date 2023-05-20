@@ -22,6 +22,9 @@ class CreateDeliveriesTable extends Migration
             $table->foreignId('delivery_location_id');
             $table->foreign('delivery_location_id')->references('id')->on('states');
             $table->boolean('delivered')->default(false);
+            $table->integer('delivery_deadline_in_days');
+            $table->datetime('delivery_start_date');
+            $table->datetime('delivery_finish_date');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class StoreDeliveryRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class StoreDeliveryRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,10 +26,20 @@ class StoreDeliveryRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required|exists:users,id',
             'car_located_id' => 'required|exists:cars_locations,id',
-            'delivery_location_id' => 'required|exists:states,id',
-            'delivered' => 'required|boolean'
+            'delivery_location_id' => 'required|exists:states,id'
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $errors = $validator->errors();
+
+        $response = response()->json([
+            'message' => __('messages.invalid_data_error'),
+            'details' => $errors->messages(),
+        ], 422);
+
+        throw new HttpResponseException($response);
     }
 }

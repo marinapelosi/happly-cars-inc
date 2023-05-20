@@ -23,7 +23,10 @@ class DeliveryFactory extends Factory
                 'available' => false
             ]),
             'delivery_location_id' => DB::table('states')->first()->id,
-            'delivered' => $this->faker->boolean()
+            'delivered' => $this->faker->boolean(),
+            'delivery_deadline_in_days' => 1,
+            'delivery_start_date' => now(),
+            'delivery_finish_date' => now()
         ];
     }
 }
