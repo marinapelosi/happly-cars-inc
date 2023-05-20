@@ -4,8 +4,9 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Contracts\Validation\Validator;
 
-class StoreCarRequest extends FormRequest
+class StoreUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,7 +15,7 @@ class StoreCarRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,13 +26,13 @@ class StoreCarRequest extends FormRequest
     public function rules()
     {
         return [
-            'car_type_id' => 'required|exists:car_types,id',
-            'display_name' => 'required|max:100',
-            'key_name' => 'required|max:20',
+            'name' => 'required|string|max:100',
+            'email' => 'required|unique:users|string|max:100',
+            'password' => 'required|min:4'
         ];
     }
 
-    protected function failedValidation(\Illuminate\Contracts\Validation\Validator $validator)
+    protected function failedValidation(Validator $validator)
     {
         $errors = $validator->errors();
 

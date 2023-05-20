@@ -10,6 +10,8 @@ use App\Models\User;
 use App\Http\Resources\DeliveryCollection;
 use App\Models\Delivery;
 use App\Http\Controllers\UsersLocationController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\DeliveryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,10 +49,14 @@ Route::get('/costumers', function () {
 
 Route::get('/costumers-with-location', [UsersLocationController::class, 'getCostumersWithLocation'])->name('costumers-with-location');
 
+Route::post('/costumers', [UserController::class, 'store'])->name('costumers');
+
 # Delivery
 Route::get('/deliveries-requested', function () {
     return new DeliveryCollection(Delivery::requested()->with(['car', 'location'])->get());
 })->name('deliveries-requested');
+
+Route::post('/deliveries', [DeliveryController::class, 'store'])->name('deliveries');
 
 Route::get('/deliveries-finished', function () {
     return new DeliveryCollection(Delivery::completed()->with(['car', 'location'])->get());

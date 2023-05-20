@@ -17,7 +17,10 @@ class Delivery extends Model
         'user_id',
         'car_located_id',
         'delivery_location_id',
-        'delivered'
+        'delivered',
+        'delivery_deadline_in_days',
+        'delivery_start_date',
+        'delivery_finish_date'
     ];
 
     protected $hidden = [
