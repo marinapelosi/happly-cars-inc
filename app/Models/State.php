@@ -17,7 +17,9 @@ class State extends Model
         'name',
         'code',
         'capital',
-        'year'
+        'year',
+        'latitude',
+        'longitude'
     ];
 
     protected $hidden = [

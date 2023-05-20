@@ -19,7 +19,9 @@ class StateResource extends JsonResource
             'name' => $this->name,
             'code' => $this->code,
             'capital' => $this->capital,
-            'year' => $this->year
+            'year' => $this->year,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude
         ];
     }
 }

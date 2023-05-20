@@ -12,4 +12,9 @@ class StateService
     {
         return State::where('code', $code)->first();
     }
+
+    public static function setCityStateField(string $city, string $code): string
+    {
+        return $city.', '.$code;
+    }
 }

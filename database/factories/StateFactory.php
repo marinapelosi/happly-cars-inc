@@ -17,7 +17,9 @@ class StateFactory extends Factory
             'name' => $this->faker->firstName(),
             'code' => $this->faker->shuffleString(),
             'capital' => $this->faker->city(),
-            'year' => $this->faker->year()
+            'year' => $this->faker->year(),
+            'latitude' => $this->faker->latitude,
+            'longitude' => $this->faker->longitude
         ];
     }
 }

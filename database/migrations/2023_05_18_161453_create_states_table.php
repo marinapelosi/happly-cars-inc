@@ -19,6 +19,8 @@ class CreateStatesTable extends Migration
             $table->string('code', 2);
             $table->string('capital', 100);
             $table->integer('year');
+            $table->string('latitude', 50);
+            $table->string('longitude', 50);
             $table->timestamps();
             $table->softDeletes();
         });
