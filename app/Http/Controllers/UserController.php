@@ -22,12 +22,7 @@ class UserController extends Controller
     public function store(StoreUserRequest $request): JsonResponse
     {
         try {
-            $userData = $request->all();
-            $stateId = StateService::getStateByCode($request->input('state'))->id;
-            $userData['location_id'] = $stateId;
-            $userData['password'] = Hash::make($userData['password']);
-            $user = User::create($userData);
-            $user->createToken('apiToken')->plainTextToken;
+            $user = UserService::saveUser($request->all());
 
             return response()->json([
                 'status' => 201,

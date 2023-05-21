@@ -24,4 +24,14 @@ class AuthService
             ], 401);
         }
     }
+
+    public static function createApiToken(User $user): void
+    {
+        $user->createToken('apiToken')->plainTextToken;
+    }
+
+    public static function checkIfLoggedUserIsAdmin(): bool
+    {
+        return (auth()->user()->is_admin == true);
+    }
 }

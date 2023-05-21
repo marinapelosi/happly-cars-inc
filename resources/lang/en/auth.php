@@ -17,4 +17,5 @@ return [
     'password' => 'The provided username or password is incorrect.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'logout' => 'Thanks for playing with HapplyCars Inc API! You are now logged out... bye.',
+    'only_admin_error' => 'Sorry. Only admin can make this action. If you are an admin, please login with your admin credentials',
 ];

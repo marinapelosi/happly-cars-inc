@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Exceptions\UserAlreadyExistsException;
+use App\Exceptions\OnlyAdminAllowedException;
 use App\Models\State;
 use App\Models\User;
 

@@ -2,7 +2,10 @@
 
 namespace App\Services;
 
+use App\Exceptions\OnlyAdminAllowedException;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use mysql_xdevapi\Exception;
 
 class UserService
 {
@@ -23,10 +26,14 @@ class UserService
         }
 
         if (isset($userId) && !empty($userId)) {
-            return User::where('id', $userId)->with($relations)->costumer()->first();
+            return User::where('id', $userId)->with($relations)->first();
         }
 
-        return User::with($relations)->orderBy('created_at', 'desc')->get();
+        if (AuthService::checkIfLoggedUserIsAdmin()) {
+            return User::with($relations)->orderBy('created_at', 'desc')->get();
+        }
+
+        return User::where('id', auth()->user()->id)->with($relations)->orderBy('created_at', 'desc')->get();
     }
 
     public static function getUserByEmail(string $email): object
@@ -34,4 +41,20 @@ class UserService
         $user = User::where('email', $email)->first();
         return self::getUsers($user->id);
     }
+
+    public static function saveUser(array $request): Object
+    {
+        if (!AuthService::checkIfLoggedUserIsAdmin()) {
+            throw new OnlyAdminAllowedException(__('auth.only_admin_error'));
+        }
+
+        $stateId = StateService::getStateByCode($request['state'])->id;
+        $request['location_id'] = $stateId;
+        $request['password'] = Hash::make($request['password']);
+        $user = User::create($request);
+        AuthService::createApiToken($user);
+        return $user;
+    }
+
+
 }
