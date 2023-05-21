@@ -160,7 +160,7 @@ Just pay attention if your Laravel Url is the same of the environment after you 
 
 [Download Postman Collection Config](doc/HapplyCarsInc.postman_collection.json)
 
-> :bulb: It's easier because is already configured to get the auth token and apply into the request when you use the Login User Request!
+> :bulb: It's easier because is already configured to get the auth token and apply into ALL THE REQUESTS when you use the Login User Request!
 
 ### Process Flow
 
