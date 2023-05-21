@@ -156,10 +156,9 @@ Import the postman files and set the HapplyCars environment, then it should be w
 
 Just pay attention if your Laravel Url is the same of the environment after you start the server.
 
-[Download Postman Environment Config](doc/HapplyCars.postman_environment)
+[Download Postman Environment Config](doc/HapplyCars.postman_environment.json)
 
-#### Collection (with endpoints)
-[Download Postman Collection Config](doc/HapplyCars Inc.postman_collection)
+[Download Postman Collection Config](doc/HapplyCarsInc.postman_collection.json)
 
 > :bulb: It's easier because is already configured to get the auth token and apply into the request when you use the Login User Request!
 
@@ -231,6 +230,13 @@ Output
 #### POST api/logout
 
 Logout the user
+
+Output
+```
+{
+    "message": "Thanks for playing with HapplyCars Inc API! You are now logged out... bye."
+}
+```
 
 ---
 
