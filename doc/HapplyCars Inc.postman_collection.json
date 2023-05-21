@@ -1,0 +1,414 @@
+{
+	"info": {
+		"_postman_id": "e03f79b6-a189-452b-b2eb-9778da78a963",
+		"name": "HapplyCars Inc",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8178409"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "User Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = JSON.parse(responseBody);\r",
+									"pm.environment.set(\"token\", json.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "// Admin\r\n// {\r\n//     \"email\": \"admin@happly.ai\",\r\n//     \"password\": \"password\"\r\n// }\r\n\r\n// Costumer\r\n{\r\n    \"email\": \"maa.pelosi@gmail.com\",\r\n    \"password\": \"pass\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "User Logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = JSON.parse(responseBody);\r",
+									"pm.environment.set(\"token\", json.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Costumer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Marina\",\r\n    \"email\": \"maa.pelosi@gmail.com\",\r\n    \"password\": \"pass\",\r\n    \"state\": \"NY\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/costumers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"costumers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Costumers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/costumers",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"costumers"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find Costumer",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/costumers/2",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"costumers",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cars",
+			"item": [
+				{
+					"name": "List Available Cars",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/available-cars",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"available-cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Unavailable Cars",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/unavailable-cars",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"unavailable-cars"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List Cars",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/cars",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"cars"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "States",
+			"item": [
+				{
+					"name": "List States",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/states",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"states"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Deliveries",
+			"item": [
+				{
+					"name": "Simulate Delivery",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"car_located_id\": 1,\r\n    \"delivery_location_code\": \"CA\",\r\n    \"delivery_start_date\": \"2023-05-19 00:00:00\",\r\n    \"accepts_the_proposed_schedule\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/delivery-schedule",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"delivery-schedule"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Request Delivery",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"accepts_the_proposed_schedule\": true,\r\n    \"car_located_id\": 1,\r\n    \"delivery_location_code\": \"CA\",\r\n    \"delivery_deadline_in_days\": 0,\r\n    \"delivery_start_date\": \"2023-05-21T00:53:45.446509Z\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/deliveries",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"deliveries"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Deliveries",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/deliveries",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"deliveries"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
