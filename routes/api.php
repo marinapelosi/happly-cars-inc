@@ -12,6 +12,10 @@ use App\Models\State;
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+
+    # User Logout
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
     # States / Locations
     Route::get('/states', function () {
         return new StateCollection(State::get());
@@ -32,7 +36,4 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/deliveries/{id}', [DeliveryController::class, 'get'])->name('deliveries');
     Route::post('/deliveries', [DeliveryController::class, 'store'])->name('deliveries');
     Route::post('/delivery-schedule', [DeliveryController::class, 'getDeliverySchedule'])->name('delivery-schedule');
-
-    # User Logout
-    Route::post('/logout', [AuthController::class, 'logout']);
 });
