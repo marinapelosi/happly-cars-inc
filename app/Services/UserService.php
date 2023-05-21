@@ -28,4 +28,10 @@ class UserService
 
         return User::with($relations)->orderBy('created_at', 'desc')->get();
     }
+
+    public static function getUserByEmail(string $email): object
+    {
+        $user = User::where('email', $email)->first();
+        return self::getUsers($user->id);
+    }
 }

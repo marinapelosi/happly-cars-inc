@@ -27,7 +27,7 @@ class LocationDistanceServiceTest extends TestCase
     {
         $firstLocation = ['latitude' => '38.199020', 'longitude' => '-77.969658'];
         $secondLocation = ['latitude' => '37.090240', 'longitude' => '-95.712891'];
-        $this->geofence->shouldReceive('CalculateDistance')->andReturn(972.19);
-        $this->assertEquals(972.19, $this->locationDistanceSevice->calculateDistance($firstLocation, $secondLocation));
+        $this->geofence->shouldReceive('CalculateDistance')->andReturn(972);
+        $this->assertEquals(972, $this->locationDistanceSevice->calculateDistance($firstLocation, $secondLocation));
     }
 }
