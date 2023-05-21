@@ -4,14 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Delivery;
 use App\Http\Requests\StoreDeliveryRequest;
-use App\Models\User;
 use App\Services\CarService;
 use App\Services\DeliveryService;
-use App\Services\GeoLocation\LocationDistanceService;
 use App\Services\ScheduleService;
 use App\Services\StateService;
 use Illuminate\Http\JsonResponse;
-use Salman\GeoFence\Service\GeoFenceCalculator;
 
 class DeliveryController extends Controller
 {
@@ -39,7 +36,7 @@ class DeliveryController extends Controller
     {
         try {
             $delivery = $request->all();
-            $delivery['user_id'] = User::inRandomOrder()->first()->id; // @TODO: colocar o usuário logado aqui
+            $delivery['user_id'] = auth()->user()->id;
             $delivery['delivery_location'] = json_encode(StateService::getStateByCode($request->input('delivery_location_code')));
             $delivery['delivered'] = DeliveryService::setDeliveryFinishedBecauseWeArePretendingAllTheProcessIsDone();
             $delivery['delivery_finish_date'] = DeliveryService::calculateDaysOfDelivery(
@@ -62,10 +59,5 @@ class DeliveryController extends Controller
                 'message' => $exception->getMessage()
             ], 500);
         }
-    }
-
-    public function calculate(){
-        $distance = new LocationDistanceService(new GeoFenceCalculator());
-        $distance->calculateDrivingTime();
     }
 }

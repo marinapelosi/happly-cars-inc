@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Models\User;
 use App\Services\GeoLocation\LocationDistanceService;
 use Salman\GeoFence\Service\GeoFenceCalculator;
 
@@ -16,7 +15,7 @@ class ScheduleService
     public static function generateSchedule(array $request): array
     {
         $locationDistanceService = new LocationDistanceService(new GeoFenceCalculator());
-        $userId = User::inRandomOrder()->first()->id; // @TODO: colocar o usuário logado aqui
+        $userId = auth()->user()->id;
         $user = UserService::getUsers($userId, false);
         $car = CarService::getCar($request['car_located_id']);
         $originLocation = StateService::setLatitudeLongitude($car->state->latitude, $car->state->longitude);

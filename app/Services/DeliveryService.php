@@ -25,7 +25,11 @@ class DeliveryService
             return Delivery::where('id', $deliveryId)->with($relations)->get();
         }
 
-        return Delivery::with($relations)->completed()->get();
+        if (AuthService::checkIfLoggedUserIsAdmin()) {
+            return Delivery::with($relations)->completed()->get();
+        }
+
+        return Delivery::where('user_id', auth()->user()->id)->with($relations)->completed()->get();
     }
 
     public static function calculateDaysOfDelivery(string $startDate, int $deadline): Object
